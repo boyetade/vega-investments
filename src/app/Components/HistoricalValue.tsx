@@ -34,83 +34,79 @@ const FilterButton = ({title, selected, onClick} :{ title: string, selected:bool
 const labels = ['Jan 23', 'Feb 23', 'March 23', 'April 23', 'May 23', 'June 23'];
 const HistoricalValue = () => {
     const [selectedButton, setSelectedButton] = useState<string | null>("6 months");
-    const [portfolio, setPortfolio] = useState<any[]>([]);
-    const [labels, setLabels] = useState<string[]>([]);
-
-    useEffect(() => {
-      const generateLabels = () => {
-        const labelsArray: string[] = [];
-        const currentDate = new Date();
-        const currentYear = currentDate.getFullYear();
-        const currentMonth = currentDate.getMonth() + 1; // Months are zero-indexed, so we add 1
-  
-        for (let year = 2020; year <= currentYear; year++) {
-          const startMonth = (year === 2020) ? 1 : 0; // Start from January for the first year, otherwise from January
-          const endMonth = (year === currentYear) ? currentMonth : 12; // End at the current month for the current year
-  
-          for (let month = startMonth; month < endMonth; month++) {
-            const formattedDate = new Date(year, month, 1).toLocaleString('default', { month: 'short' }) + ' ' + year;
-            labelsArray.push(formattedDate);
-          }
-        }
-  
-        return labelsArray;
-      };
-  
-      setLabels(generateLabels());
-    }, []);
-    const handleClick = ({ title }: { title: string }) => {
-        setSelectedButton(title);
-    };
+    const [chartData, setChartData] = useState<any>({});
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
       const fetchData = async () => {
-          try {
-              const portfolioResponse = await fetch('/api/portfolios');
-              const portfolioData = await portfolioResponse.json();
-              setPortfolio(portfolioData);
-          } catch (error) {
-              console.error('Error fetching data:', error);
-          }
-      };
-  
-      fetchData();
-  }, []);
-    
-  const data = {
-    labels: labels,
-    datasets: portfolio.map((entry, index) => ({
-      label: `Portfolio ${index + 1}`,
-      data: entry.positions.map((position: any) => position.quantity), // Use relevant data from your portfolio structure
-      borderColor: `rgb(${faker.datatype.number(255)}, ${faker.datatype.number(255)}, ${faker.datatype.number(255)})`,
-      backgroundColor: `rgba(${faker.datatype.number(255)}, ${faker.datatype.number(255)}, ${faker.datatype.number(255)}, 0.5)`,
-    })),
-  };
 
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'right' as const,
-      },
-      title: {
-        display: true,
-        text: 'Portfolio Balance Over Time',
-      },
+        try {
+
+          const response = await fetch ('api/portfolios');
+          const result = await response.json();
+
+          const labels = result.labels;
+          const datasets = [
+            {
+              label: 'DataSet', 
+              data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+              borderColor: 'rgb(53, 162, 235)',
+                        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+            }
+          ]
+          setChartData({
+            labels: labels,
+            datasets: datasets
+        });
+
+        setLoading(false);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+      fetchData()
+    }, []);
+
+    const handleClick = ({ title }: { title: string }) => {
+        setSelectedButton(title);
+    };
+    
+    // const data = {
+    //     labels: labels,
+    //     datasets: [
+    //         {
+    //           label: 'Dataset 2',
+    //           data: 
+    //           borderColor: 'rgb(53, 162, 235)',
+    //           backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    //         },
+    //       ],
+    // }
+
+    const options = {
+        responsive: true,
+  plugins: {
+    legend: {
+      position: 'right' as const,
     },
-    scales: {
-      y: {
-        grid: {
-          display: false,
-        },
-      },
-      x: {
-        grid: {
-          display: false,
-        },
-      },
+    title: {
+      display: true,
+      text: 'Chart.js Line Chart',
     },
-  };
+  },
+  scales: {
+    y: {
+      grid: {
+        display: false
+      }
+    },
+    x: {
+      grid: {
+        display: false 
+      }
+    }
+  }
+    }
 
     
 
@@ -128,9 +124,7 @@ const HistoricalValue = () => {
 <FilterButton title="All time" selected={selectedButton === "All time"} onClick={() => handleClick({ title: "All time" })} />
                           
                         </div></div>
-        <Line data={data}
-        options={options}
-        className='m-6'></Line>
+                        {loading ? <p>Loading...</p> : <Line data={chartData} options={options} className='m-6' />}
         </div>
         </div>
 </div>

@@ -124,10 +124,7 @@ const AssetsCharts = () => {
         return chartData;
     };
 
-    useEffect(() => {
-        console.log('assetTypes:', assetTypes);
-        console.log('filter:', filter);
-    }, [assetTypes, filter]);
+
 
     const handleFilterChange = (selectedFilter: string) => {
         setFilter(selectedFilter);
