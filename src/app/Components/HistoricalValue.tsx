@@ -72,11 +72,12 @@ const HistoricalValue = () => {
     
     
     useEffect(() => {
+      const currentSelectedButton = selectedButton;
       const fetchData = async () => {
 
         try {
 
-          const response = await fetch ('api/portfolios');
+          const response = await fetch ('api/portfolios?period=${currentSelectedButton}');
           const result = await response.json();
           const labels = result.labels;
           const totalValues = result.totalValues;
@@ -89,18 +90,22 @@ const HistoricalValue = () => {
                         backgroundColor: 'rgba(53, 162, 235, 0.5)',
             }
           ]
-          setChartData({
+
+          if (currentSelectedButton === selectedButton) {
+            setChartData({
             labels: labels,
             datasets: datasets
         });
-
+      }
         setLoading(false);
+          
         } catch (error) {
           console.error('Error fetching data:', error);
+          setLoading(false);
         }
       };
       fetchData()
-    }, []);
+    }, [selectedButton]);
     
     const options: ChartOptions<'line'> = {
       responsive: true,
@@ -162,7 +167,7 @@ scales: {
             <div className='col-span-1 md:col-span-2 lg:col-span-2  '>
             <div className = "rounded-xl shadow-lg bg-white sm:h-screen md:h-auto w-full p-1"> 
                 <div className='p-5 flex flex-col m-6'>
-        <p className='text-xl md:text-2xl font-medium pb-3'> Overall Porfolio balance </p>
+        <p className='text-xl md:text-2xl font-medium pb-3'> Overall porfolio balance </p>
           <div className='flex gap-2'>
                            <FilterButton title="All time" selected={selectedButton === "All time"} onClick={() => handleClick({ title: "All time" })} />
                             <FilterButton title="6 months" selected={selectedButton === "6 months"} onClick={() => handleClick({title: "6 months"})}/>
