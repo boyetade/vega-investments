@@ -170,7 +170,7 @@ const portfoliosHandler = (req: NextApiRequest, res: NextApiResponse) => {
       },
       {
         "id": "14",
-        "asOf": "2023-08-01",
+        "asOf": "2023-06-01",
         "positions": [
           { "id": 1, "asset": "Bitcoin", "quantity": 50, "price": 29000.00 },
           { "id": 2, "asset": "Ethereum", "quantity": 58, "price": 5100.00 },
@@ -227,6 +227,33 @@ const portfoliosHandler = (req: NextApiRequest, res: NextApiResponse) => {
         });
         totalValues.push(totalValue);
     });
+
+    const currentDate = new Date('2024-13-03'); // Current date
+
+// Calculate 6 months ago
+const sixMonthsAgo = new Date(currentDate);
+sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+// Calculate 9 months ago
+const nineMonthsAgo = new Date(currentDate);
+nineMonthsAgo.setMonth(nineMonthsAgo.getMonth() - 9);
+
+// Calculate 12 months ago
+const twelveMonthsAgo = new Date(currentDate);
+twelveMonthsAgo.setMonth(twelveMonthsAgo.getMonth() - 12);
+
+// Filter data for the last 6 months
+const sixMonthsData = portfolios.filter(entry => new Date(entry.asOf) >= sixMonthsAgo);
+
+// Filter data for the last 9 months
+const nineMonthsData = portfolios.filter(entry => new Date(entry.asOf) >= nineMonthsAgo);
+
+// Filter data for the last 12 months
+const twelveMonthsData = portfolios.filter(entry => new Date(entry.asOf) >= twelveMonthsAgo);
+
+// Filter data for all time (from the beginning)
+const allTimeData = portfolios.filter(entry => new Date(entry.asOf) <= currentDate);
+
     
     res.status(200).json({ labels, portfolios, totalValues });
 };
