@@ -15,6 +15,7 @@ const FilterButton = ({ title, selected, onClick }: { title: string, selected: b
 const AssetsCharts = () => {
     const [assets, setAssets] = useState<any[]>([]);
     const [prices, setPrices] = useState<any[]>([]);
+    const [loading, setLoading] = useState<boolean>(true)
     const [allData, setAllData] = useState<any>({
         labels: [],
         datasets: [{
@@ -37,6 +38,7 @@ const AssetsCharts = () => {
                 const pricesResponse = await fetch('/api/prices');
                 const pricesData = await pricesResponse.json();
                 setPrices(pricesData);
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -156,7 +158,8 @@ const AssetsCharts = () => {
 
                             ))}
                         </div>
-                        <Doughnut data={filter === 'all' ? allData : filteredData} options={options} className='m-6'></Doughnut>
+                        {loading ? <p>Sit back and relax while we whip up your chart magic</p> :                         <Doughnut data={filter === 'all' ? allData : filteredData} options={options} className='m-6'></Doughnut>
+}
                     </div>
                 </div>
             </div>
