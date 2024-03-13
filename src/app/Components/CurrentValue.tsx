@@ -57,7 +57,7 @@ const CurrentValue = () => {
           <div className="p-5 flex flex-col ">
             <p className="text-2xl md:text-xl font-bold  pb-3">
               {" "}
-              Your porfolio balance is
+              Your portfolio balance is
             </p>
             {loading ? (
               <div className="flex flex-col items-center justify-center">

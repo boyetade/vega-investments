@@ -163,7 +163,7 @@ const HistoricalValue = () => {
           <div className="p-5 flex flex-col m-6">
             <p className="text-xl md:text-2xl font-bold pb-3">
               {" "}
-              Overall porfolio balance{" "}
+              Overall portfolio balance{" "}
             </p>
             {/* filter buttons */}
             <div className="flex flex-wrap gap-2">
