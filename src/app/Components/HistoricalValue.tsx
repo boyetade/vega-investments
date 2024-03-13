@@ -11,7 +11,6 @@ Legend,
 Title
 } from 'chart.js';
 import { Line } from "react-chartjs-2";
-import { faker } from '@faker-js/faker';
 
 ChartJS.register(
     LineElement, 
@@ -44,12 +43,14 @@ const HistoricalValue = () => {
 
           const response = await fetch ('api/portfolios');
           const result = await response.json();
-
+  
           const labels = result.labels;
-          const datasets = [
+          const totalValues = result.totalValues;
+        
+                     const datasets = [
             {
               label: 'DataSet', 
-              data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+              data: totalValues,
               borderColor: 'rgb(53, 162, 235)',
                         backgroundColor: 'rgba(53, 162, 235, 0.5)',
             }
@@ -71,18 +72,8 @@ const HistoricalValue = () => {
         setSelectedButton(title);
     };
     
-    // const data = {
-    //     labels: labels,
-    //     datasets: [
-    //         {
-    //           label: 'Dataset 2',
-    //           data: 
-    //           borderColor: 'rgb(53, 162, 235)',
-    //           backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    //         },
-    //       ],
-    // }
 
+  
     const options = {
         responsive: true,
   plugins: {

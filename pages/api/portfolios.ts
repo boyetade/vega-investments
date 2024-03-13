@@ -41,8 +41,8 @@ const portfoliosHandler = (req: NextApiRequest, res: NextApiResponse) => {
         "asOf": "2020-04-15",
         "positions": [
           { "id": 1, "asset": "Bitcoin", "quantity": 12, "price": 2800.00 },
-          { "id": 2, "asset": "Ethereum", "quantity": 7, "price": 2400.00 },
-          { "id": 3, "asset": "Tesla", "quantity": 1100, "price": 250.41 },
+          { "id": 2, "asset": "Ethereum", "quantity": 7, "price": 1400.00 },
+          { "id": 3, "asset": "Tesla", "quantity": 1100, "price": 10.41 },
           { "id": 4, "asset": "Gold", "quantity": 15, "price": 1100.29 },
           { "id": 5, "asset": "Apple", "quantity": 120, "price": 280.74 }
         ]
@@ -106,10 +106,10 @@ const portfoliosHandler = (req: NextApiRequest, res: NextApiResponse) => {
         "id": "8",
         "asOf": "2021-10-15",
         "positions": [
-          { "id": 1, "asset": "Bitcoin", "quantity": 30, "price": 18000.00 },
+          { "id": 1, "asset": "Bitcoin", "quantity": 30, "price": 10000.00 },
           { "id": 2, "asset": "Ethereum", "quantity": 30, "price": 3800.00 },
           { "id": 3, "asset": "Tesla", "quantity": 2200, "price": 500.41 },
-          { "id": 4, "asset": "Gold", "quantity": 45, "price": 1900.29 },
+          { "id": 4, "asset": "Gold", "quantity": 45, "price": 1000.29 },
           { "id": 5, "asset": "Apple", "quantity": 250, "price": 142.10 }
         ]
       },
@@ -214,11 +214,21 @@ const portfoliosHandler = (req: NextApiRequest, res: NextApiResponse) => {
       },
     ]
     
-
+    
     // Extract date labels from the portfolios
     const labels = portfolios.map(entry => formatDate(entry.asOf));
-
-    res.status(200).json({ labels, portfolios });
+    const p = portfolios.map((position: any) => position.positions);
+    const d = p.map(f => f.price);
+    const totalValues: number[] = [];
+    portfolios.forEach(portfolio => {
+        let totalValue = 0;
+        portfolio.positions.forEach(position => {
+            totalValue += position.price * position.quantity;
+        });
+        totalValues.push(totalValue);
+    });
+    
+    res.status(200).json({ labels, portfolios, totalValues });
 };
 
 export default portfoliosHandler;
