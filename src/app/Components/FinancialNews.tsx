@@ -45,7 +45,7 @@ const FinancialNews: React.FC = () => {
         <div className='col-span-1 md:col-span-1 lg:col-span-1 '>
               <div className="rounded-xl shadow-lg bg-white">
       <div className="p-2 md:p-3 flex flex-col m-6">
-        <h2 className="text-lg font-bold pb-2">Recent Financial News</h2>
+        <h2 className="text-xl font-bold pb-2">Recent Financial News</h2>
         {loading ? <p>Gathering the lastest headlines,just for you!</p> :<div>
           <ul>
             {news.map((article, index) => (
@@ -54,7 +54,7 @@ const FinancialNews: React.FC = () => {
                <div className='pb-4'>
                <div className="flex items-start"> 
                <a href={article.url} target="_blank" rel="noopener noreferrer" className='font-bold text-sm pr-1'>{article.title}</a>
-               <Image src={article.imageUrl} alt={article.title} width={50}  height={50} loader={customLoader} />
+               <Image src={article.imageUrl} alt={article.title} width={70}  height={70} loader={customLoader} />
                </div>
                   
                 </div>

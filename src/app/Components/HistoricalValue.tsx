@@ -167,8 +167,8 @@ scales: {
             <div className='col-span-1 md:col-span-2 lg:col-span-2  '>
             <div className = "rounded-xl shadow-lg bg-white sm:h-screen md:h-auto w-full p-1"> 
                 <div className='p-5 flex flex-col m-6'>
-        <p className='text-xl md:text-2xl font-medium pb-3'> Overall porfolio balance </p>
-          <div className='flex gap-2'>
+        <p className='text-xl md:text-2xl font-bold pb-3'> Overall porfolio balance </p>
+          <div className='flex flex-wrap gap-2'>
                            <FilterButton title="All time" selected={selectedButton === "All time"} onClick={() => handleClick({ title: "All time" })} />
                             <FilterButton title="6 months" selected={selectedButton === "6 months"} onClick={() => handleClick({title: "6 months"})}/>
                             <FilterButton title="9 months" selected={selectedButton === "9 months"} onClick={() => handleClick({title:"9 months"})}/>

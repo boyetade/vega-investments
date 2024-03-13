@@ -150,7 +150,7 @@ const AssetsCharts = () => {
             <div className='col-span-1 md:col-span-1 lg:col-span-1 max-w-screen-lg mx-auto'>
                 <div className="rounded-xl shadow-lg bg-white sm:h-screen md:h-auto w-full ">
                     <div className='p-5 flex flex-col m-6'>
-                        <p className='text-xl md:text-xl font-medium pb-3'> Your Portfolio diversity</p>
+                        <p className='text-xl md:text-2xl font-bold pb-3'> Your Portfolio diversity</p>
                         <div className= 'flex'>
                         <FilterButton  title={'All'} selected={filter === 'all'} onClick={() => handleFilterChange('all')} />
                             {assetTypesList.map(assetType => (

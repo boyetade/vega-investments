@@ -49,9 +49,8 @@ const currentPercentage = calculateDiff(currentValue, prevBalance);
         <div className='col-span-1 md:col-span-1 lg:col-span-1 '>
         <div className="rounded-xl shadow-lg bg-white ">
                 <div className='p-5 flex flex-col ' > 
-                <p className='text-xl md:text-xl font-medium pb-3'> Your porfolio balance is</p>
-                {loading ? <p>Just a moment, crunching the numbers for you!</p> : <p className={`text-xs font-bold  ${currentPercentage && currentPercentage > 0 ? 'text-green-700' :'text-red-600'} `}>{currentPercentage?.toLocaleString(undefined, {minimumFractionDigits:2})}% since {balanceDate}</p>
-} 
+                <p className='text-2xl md:text-xl font-bold  pb-3'> Your porfolio balance is</p>
+                {loading ? <p >Just a moment, crunching the numbers for you!</p> : <><p className='font-bold text-4xl text-blue-500'>${currentValue?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</p><p className={`text-xs font-bold  ${currentPercentage && currentPercentage > 0 ? 'text-green-700' : 'text-red-600'} `}>{currentPercentage?.toLocaleString(undefined, { minimumFractionDigits: 2 })}% since {balanceDate}</p></>} 
         </div>
         </div>
     </div>
