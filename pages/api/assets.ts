@@ -26,7 +26,12 @@ const assetsHandler = (req: NextApiRequest, res: NextApiResponse) => {
       id: "5",
       name: "Apple",
       type: "Stock"
-    }
+    },
+    {
+      id: "6",
+      name: "Diamonds",
+      type: "Commodity"
+    },
   ]
   
   res.status(200).json(assets)

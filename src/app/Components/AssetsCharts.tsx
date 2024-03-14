@@ -130,7 +130,7 @@ const AssetsCharts = () => {
               return totalValue;
             }),
             backgroundColor: generateShadesOfBlue(
-              "rgb(0, 0, 255)",
+              "rgb(6 182 212);",
               assetTypes.length
             ),
             borderColor: [],
@@ -151,7 +151,7 @@ const AssetsCharts = () => {
               return price ? price.price : 0;
             }),
             backgroundColor: generateShadesOfBlue(
-              "rgb(0, 0, 255)",
+              "rgb(6 182 212);",
               filteredAssetsOfType.length
             ),
             borderColor: [],

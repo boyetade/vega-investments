@@ -26,7 +26,12 @@ const pricesHandler = (req: NextApiRequest, res: NextApiResponse) => {
         id: "5",
         asset: "Apple",
         price: 278.40
-      }
+      },
+      {
+        id: "6",
+        asset: "Diamonds",
+        price: 1000.49
+      },
   ]
   
   res.status(200).json(prices)
